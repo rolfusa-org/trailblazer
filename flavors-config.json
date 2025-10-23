@@ -19,7 +19,7 @@
       "versions": [
         {
           "version": "0.2.0",
-          "tag": "v0.2.0",
+          "tag": "feature-a-v0.2.0",
           "label": "Latest",
           "isDefault": true,
           "deployPath": "feature-a/v0.2.0",
@@ -47,7 +47,7 @@
       "versions": [
         {
           "version": "0.2.0",
-          "tag": "v0.2.0",
+          "tag": "feature-b-v0.2.0",
           "label": "Latest",
           "isDefault": true,
           "deployPath": "feature-b/v0.2.0",
@@ -75,7 +75,7 @@
       "versions": [
         {
           "version": "0.2.0",
-          "tag": "v0.2.0",
+          "tag": "feature-c-v0.2.0",
           "label": "Latest",
           "isDefault": true,
           "deployPath": "feature-c/v0.2.0",
