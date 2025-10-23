@@ -5,6 +5,19 @@ All notable changes to Feature A will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0] - 2025-10-23
+
+### Changed
+- Version milestone update
+- Enhanced documentation and deployment configuration
+- Multi-version support enabled in main branch configuration
+- Both v0.1.0 and v0.2.0 now available for deployment
+
+### Technical
+- Added branch-specific tag: `feature-a-v0.2.0`
+- Updated flavors-config.json to support version selection
+- Same codebase as v0.1.0 with improved deployment architecture
+
 ## [0.1.0] - 2025-10-23
 
 ### Added
@@ -33,5 +46,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+[0.2.0]: https://github.com/rolfusa-org/trailblazer/releases/tag/feature-a-v0.2.0
 [0.1.0]: https://github.com/rolfusa-org/trailblazer/releases/tag/v0.1.0
 
