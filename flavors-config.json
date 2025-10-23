@@ -18,10 +18,18 @@
       "visible": true,
       "versions": [
         {
-          "version": "0.1.0",
-          "tag": "v0.1.0",
+          "version": "0.2.0",
+          "tag": "v0.2.0",
           "label": "Latest",
           "isDefault": true,
+          "deployPath": "feature-a/v0.2.0",
+          "releaseDate": "2025-10-23"
+        },
+        {
+          "version": "0.1.0",
+          "tag": "v0.1.0",
+          "label": "Stable",
+          "isDefault": false,
           "deployPath": "feature-a/v0.1.0",
           "releaseDate": "2025-10-23"
         }
@@ -38,10 +46,18 @@
       "visible": true,
       "versions": [
         {
-          "version": "0.1.0",
-          "tag": "v0.1.0",
+          "version": "0.2.0",
+          "tag": "v0.2.0",
           "label": "Latest",
           "isDefault": true,
+          "deployPath": "feature-b/v0.2.0",
+          "releaseDate": "2025-10-23"
+        },
+        {
+          "version": "0.1.0",
+          "tag": "v0.1.0",
+          "label": "Stable",
+          "isDefault": false,
           "deployPath": "feature-b/v0.1.0",
           "releaseDate": "2025-10-23"
         }
@@ -58,10 +74,18 @@
       "visible": true,
       "versions": [
         {
-          "version": "0.1.0",
-          "tag": "v0.1.0",
+          "version": "0.2.0",
+          "tag": "v0.2.0",
           "label": "Latest",
           "isDefault": true,
+          "deployPath": "feature-c/v0.2.0",
+          "releaseDate": "2025-10-23"
+        },
+        {
+          "version": "0.1.0",
+          "tag": "v0.1.0",
+          "label": "Stable",
+          "isDefault": false,
           "deployPath": "feature-c/v0.1.0",
           "releaseDate": "2025-10-23"
         }
