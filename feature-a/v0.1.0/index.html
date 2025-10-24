@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROLF Trailblazer - Feature A</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../../shared/flavor-switcher.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Top Bar (status-bar removed) -->
+    <div class="top-bar">
+        <div class="nav-bar">
+            <a href="#" class="nav-btn" id="backBtn" style="display: none;">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            <div class="nav-btn" id="homeBtn">
+                <i class="fas fa-home"></i>
+            </div>
+            <h1 class="nav-title">Togethering</h1>
+            <div class="nav-actions">
+                <button class="nav-btn">
+                    <i class="fas fa-bell"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Banner Section -->
+    <div class="banner">
+        <div class="banner-content">
+            <p>Banner Content Placeholder</p>
+        </div>
+    </div>
+
+    <!-- Grid Menu with only 2 apps: My QR and Scan -->
+    <div class="grid-menu" id="gridMenu">
+        <a href="#" class="menu-item" data-app="myqr">
+            <div class="menu-icon"><i class="fas fa-qrcode"></i></div>
+            <div class="menu-label">My QR</div>
+        </a>
+        <a href="#" class="menu-item" data-app="scan">
+            <div class="menu-icon"><i class="fas fa-camera"></i></div>
+            <div class="menu-label">Scan</div>
+        </a>
+    </div>
+
+    <!-- Bottom Navigation (4 inactive icons) -->
+    <div class="bottom-nav">
+        <div class="nav-tab inactive">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </div>
+        <div class="nav-tab inactive">
+            <i class="fas fa-calendar"></i>
+            <span>Events</span>
+        </div>
+        <div class="nav-tab inactive">
+            <i class="fas fa-project-diagram"></i>
+            <span>Workflow</span>
+        </div>
+        <div class="nav-tab inactive">
+            <i class="fas fa-user"></i>
+            <span>Profile</span>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="../../shared/flavor-switcher.js"></script>
+</body>
+</html>
+
