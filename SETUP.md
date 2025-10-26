@@ -1,6 +1,6 @@
 # Setup & Deployment Guide
 
-Complete guide for setting up the Togethering multi-flavor repository and GitHub Pages deployment.
+Complete guide for setting up the ROLF Trailblazer multi-feature repository and GitHub Pages deployment.
 
 ## 📋 Table of Contents
 
@@ -14,12 +14,12 @@ Complete guide for setting up the Togethering multi-flavor repository and GitHub
 
 ### 1. Repository Structure
 
-The repository uses a branch-based multi-flavor architecture:
+The repository uses a branch-based multi-feature architecture:
 
 - **`main`**: Landing page, documentation, and GitHub Actions workflow
-- **`flavor-html`**: Pure HTML/CSS/JS implementation
-- **`flavor-pwa`**: Progressive Web App implementation
-- **`flavor-nextjs`**: Next.js implementation (planned)
+- **`feature-a`**: Baseline implementation for exploration features
+- **`feature-b`**: Alternative implementation approach
+- **`feature-c`**: Experimental features and innovations
 - **`gh-pages`**: Auto-generated deployment branch (don't edit directly)
 
 ### 2. Enable GitHub Pages
@@ -46,19 +46,20 @@ The repository uses a branch-based multi-flavor architecture:
 ```bash
 # Push any of the branches to trigger deployment
 git push origin main
-git push origin flavor-html
-git push origin flavor-pwa
+git push origin feature-a
+git push origin feature-b
+git push origin feature-c
 ```
 
 Go to **Actions** tab to watch the deployment progress.
 
 ## Daily Development Workflow
 
-### Working on a Flavor
+### Working on a Feature
 
 ```bash
-# Switch to your flavor branch
-git checkout flavor-html
+# Switch to your feature branch
+git checkout feature-a
 
 # Make your changes
 # ... edit files ...
@@ -72,7 +73,7 @@ git add .
 git commit -m "feat: add user profile feature"
 
 # Push to trigger auto-deployment
-git push origin flavor-html
+git push origin feature-a
 ```
 
 ### Creating a New Version
@@ -80,17 +81,17 @@ git push origin flavor-html
 When you're ready to release a new version:
 
 ```bash
-# On your flavor branch, after committing changes
-git tag -a v1.2.0 -m "Release v1.2.0: User profiles and settings"
-git push origin v1.2.0
+# On your feature branch, after committing changes
+git tag -a feature-a-v0.3.0 -m "Release v0.3.0: User profiles and settings"
+git push origin feature-a-v0.3.0
 
 # Update CHANGELOG.md
 vim CHANGELOG.md
 # Add your release notes under a new version heading
 
 git add CHANGELOG.md
-git commit -m "docs: update changelog for v1.2.0"
-git push origin flavor-html
+git commit -m "docs: update changelog for v0.3.0"
+git push origin feature-a
 ```
 
 The GitHub Action will automatically:
@@ -154,20 +155,20 @@ To test the complete multi-flavor experience locally:
 
 ```bash
 # Create a local gh-pages simulation
-mkdir -p /tmp/togethering-test
-cd /tmp/togethering-test
+mkdir -p /tmp/trailblazer-test
+cd /tmp/trailblazer-test
 
 # Copy main branch files
 git clone <your-repo> temp
 cd temp
 git checkout main
-cp index.html config.json /tmp/togethering-test/
-cd /tmp/togethering-test && rm -rf temp
+cp index.html flavors-config.json /tmp/trailblazer-test/
+cd /tmp/trailblazer-test && rm -rf temp
 
-# Clone each flavor
-git clone -b flavor-html <your-repo> html
-git clone -b flavor-pwa <your-repo> pwa
-# git clone -b flavor-nextjs <your-repo> nextjs
+# Clone each feature
+git clone -b feature-a <your-repo> feature-a
+git clone -b feature-b <your-repo> feature-b
+git clone -b feature-c <your-repo> feature-c
 
 # Run server
 python3 -m http.server 8000
@@ -176,33 +177,35 @@ python3 -m http.server 8000
 
 ## Configuration
 
-### Change Default Flavor
+### Change Default Feature
 
-Edit `config.json` on main branch:
+Edit `flavors-config.json` on main branch:
 
 ```json
 {
-  "defaultFlavor": "pwa"  // Change from "html" to "pwa"
+  "defaultFeature": "feature-b",
+  "defaultVersion": "0.2.0"
 }
 ```
 
-Commit and push - the landing page will update.
+Commit and push - users will be redirected to the new default.
 
-### Add New Flavor
+### Add New Feature
 
 1. **Create new branch:**
 ```bash
-git checkout -b flavor-mynewflavor
+git checkout -b feature-d
 # Add your implementation
 git add .
-git commit -m "feat: initial mynewflavor implementation"
-git push origin flavor-mynewflavor
+git commit -m "feat: initial feature-d implementation"
+git push origin feature-d
 ```
 
-2. **Update config.json on main:**
+2. **Update flavors-config.json on main:**
 ```json
 {
-  "flavors": {
+  "flavors": [
+    {
     "mynewflavor": {
       "name": "My New Flavor",
       "shortName": "New",
@@ -266,14 +269,14 @@ Add checkout step for new flavor.
 3. Waiting for first deployment - can take 1-2 minutes
 4. Wrong repository URL in config
 
-### Double-Click Not Working
+### Floating Selector Not Working
 
-If the home button double-click isn't switching flavors:
+If the floating selector button isn't appearing:
 
-1. Check if `localStorage.getItem('togetheringReturnUrl')` is set
-2. Verify you're at the home screen (grid menu visible)
-3. Try adjusting `doubleClickDelay` in script.js (default 300ms)
-4. Check browser console for JavaScript errors
+1. Check if `localStorage.getItem('trailblazerFeature')` is set
+2. Verify the shared components are loading correctly
+3. Check browser console for JavaScript errors
+4. Ensure you're on a feature page (not the landing page)
 
 ## Advanced Topics
 
@@ -296,16 +299,16 @@ git push -f origin gh-pages
 
 ### Keeping Branches in Sync
 
-Flavors are independent, but if you need shared assets:
+Features are independent, but if you need shared assets:
 
 ```bash
 # Option 1: Cherry-pick specific commits
-git checkout flavor-html
-git cherry-pick <commit-hash-from-flavor-pwa>
+git checkout feature-a
+git cherry-pick <commit-hash-from-feature-b>
 
 # Option 2: Merge specific files
-git checkout flavor-pwa -- path/to/shared-file.js
-git commit -m "chore: sync shared file from flavor-pwa"
+git checkout feature-b -- path/to/shared-file.js
+git commit -m "chore: sync shared file from feature-b"
 ```
 
 ### Custom Domain
@@ -320,8 +323,8 @@ To use a custom domain with GitHub Pages:
 
 - **GitHub Actions Documentation**: https://docs.github.com/actions
 - **GitHub Pages Documentation**: https://docs.github.com/pages
-- **Project Issues**: https://git.ouryahoo.com/ljzhang/togethering-demo/issues
-- **Yahoo Builder Community**: Reach out to the community
+- **Project Issues**: https://github.com/rolfusa-org/trailblazer/issues
+- **ROLF Community**: Reach out to the ROLF community
 
 ## Appendix: File Structure Reference
 

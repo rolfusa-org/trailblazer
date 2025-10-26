@@ -1,8 +1,8 @@
-// ===== TOGETHERING SHARED COMPONENTS =====
-// Flavor & Version Switcher + Changelog Modal
+// ===== ROLF TRAILBLAZER SHARED COMPONENTS =====
+// Feature & Version Switcher + Changelog Modal
 // Version: 2.0.0
-// This file is shared across all flavor branches
-// Supports nested version paths: /flavor/vX.Y.Z/
+// This file is shared across all feature branches
+// Supports nested version paths: /feature-x/vX.Y.Z/
 
 (function() {
     'use strict';
@@ -398,5 +398,5 @@
         }
     });
     
-    console.log('Togethering Shared Components v2.0 loaded');
+    console.log('ROLF Trailblazer Shared Components v2.0 loaded');
 })();
