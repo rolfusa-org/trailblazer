@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROLF Trailblazer - Choose Your Feature</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            color: white;
+        }
+        
+        .logo {
+            font-size: 64px;
+            margin-bottom: 24px;
+            animation: fadeIn 0.6s ease;
+        }
+        
+        h1 {
+            font-size: 42px;
+            margin-bottom: 12px;
+            font-weight: 700;
+            animation: fadeIn 0.8s ease;
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            margin-bottom: 40px;
+            opacity: 0.95;
+            line-height: 1.6;
+            animation: fadeIn 1s ease;
+        }
+        
+        .flavor-grid {
+            display: grid;
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+        
+        .flavor-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            text-align: left;
+            color: #333;
+            animation: slideUp 0.5s ease;
+        }
+        
+        .flavor-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        }
+        
+        .flavor-card.disabled {
+            opacity: 0.6;
+            cursor: not-allowed !important;
+        }
+        
+        .flavor-card.disabled:hover {
+            transform: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .flavor-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        
+        .flavor-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #10b981;
+        }
+        
+        .flavor-icon {
+            font-size: 32px;
+            color: #10b981;
+            opacity: 0.8;
+        }
+        
+        .flavor-meta {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .badge-version {
+            background: #e0f2fe;
+            color: #0369a1;
+        }
+        
+        .badge-default {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        
+        .badge-status {
+            color: white;
+        }
+        
+        .flavor-desc {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 8px;
+        }
+        
+        .footer {
+            margin-top: 32px;
+            font-size: 14px;
+            opacity: 0.9;
+            animation: fadeIn 1.2s ease;
+        }
+        
+        .footer a {
+            color: white;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+            transition: border-color 0.2s;
+        }
+        
+        .footer a:hover {
+            border-bottom-color: white;
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            border: 2px solid #e2e8f0;
+            border-top-color: #10b981;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @media (max-width: 640px) {
+            h1 { font-size: 32px; }
+            .logo { font-size: 48px; }
+            .flavor-title { font-size: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">🧭</div>
+        <h1>ROLF Trailblazer</h1>
+        <p class="subtitle">
+            Exploration with safety and privacy in mind<br>
+            Choose your feature below
+        </p>
+        
+        <div class="flavor-grid" id="flavorGrid">
+            <!-- Dynamically loaded -->
+        </div>
+        
+        <div class="footer">
+            <p>
+                <i class="fas fa-info-circle"></i>
+                ROLF Project - Exploration Platform
+                · <a href="https://github.com/rolfusa-org/trailblazer" target="_blank">View on GitHub</a>
+            </p>
+        </div>
+    </div>
+    
+    <script>
+        // Load configuration and handle auto-redirect or build flavor cards
+        async function init() {
+            try {
+                const response = await fetch('./flavors-config.json');
+                const config = await response.json();
+                
+                // Check localStorage first (remember user's choice)
+                const savedFeature = localStorage.getItem('trailblazerFeature');
+                const savedVersion = localStorage.getItem('trailblazerVersion');
+                
+                if (savedFeature && savedVersion) {
+                    // Validate saved selection still exists in config
+                    const flavor = config.flavors.find(f => f.key === savedFeature);
+                    const version = flavor?.versions.find(v => v.version === savedVersion);
+                    if (version) {
+                        console.log('Redirecting to saved selection:', version.deployPath);
+                        window.location.href = './' + version.deployPath + '/';
+                        return;
+                    }
+                }
+                
+                // Fallback to config default
+                if (config.defaultFeature && config.defaultVersion) {
+                    const defaultFlavor = config.flavors.find(f => f.key === config.defaultFeature);
+                    const defaultVersion = defaultFlavor?.versions.find(v => v.version === config.defaultVersion);
+                    
+                    if (defaultVersion) {
+                        console.log('Redirecting to default:', defaultVersion.deployPath);
+                        window.location.href = './' + defaultVersion.deployPath + '/';
+                        return;
+                    }
+                }
+                
+                // If all fails, show landing page
+                await buildFlavorCards(config);
+            } catch (error) {
+                console.error('Failed to load config:', error);
+                document.getElementById('flavorGrid').innerHTML = `
+                    <div style="text-align: center; padding: 40px; color: #ef4444;">
+                        <i class="fas fa-exclamation-triangle" style="font-size: 48px;"></i>
+                        <p style="margin-top: 16px;">Failed to load features</p>
+                    </div>
+                `;
+            }
+        }
+        
+        async function buildFlavorCards(config) {
+            const grid = document.getElementById('flavorGrid');
+            grid.innerHTML = '';
+            
+            // Filter to visible flavors
+            const visibleFlavors = config.flavors.filter(f => f.visible);
+            
+            for (const flavor of visibleFlavors) {
+                const hasVersions = flavor.versions && flavor.versions.length > 0;
+                const defaultVersion = flavor.versions.find(v => v.isDefault) || flavor.versions[0];
+                
+                const card = document.createElement('div');
+                card.className = 'flavor-card';
+                
+                // Get status info
+                const statusInfo = config.statusTypes[flavor.status] || config.statusTypes['development'];
+                const isClickable = statusInfo.clickable && hasVersions;
+                
+                if (isClickable) {
+                    card.onclick = () => launchFlavor(flavor, config);
+                    card.style.cursor = 'pointer';
+                } else {
+                    card.classList.add('disabled');
+                }
+                
+                // Status badge
+                const statusBadge = `<span class="badge badge-status" style="background: ${statusInfo.color};">${statusInfo.label}</span>`;
+                
+                // Version badge
+                let versionBadge = '';
+                if (hasVersions && defaultVersion) {
+                    versionBadge = `<span class="badge badge-version">v${defaultVersion.version}</span>`;
+                    if (defaultVersion.label) {
+                        versionBadge += ` <span class="badge badge-default">${defaultVersion.label}</span>`;
+                    }
+                }
+                
+                // Version count
+                const versionCount = flavor.versions.length;
+                const versionInfo = versionCount > 1 ? `<small style="color: #999;">${versionCount} versions available</small>` : '';
+                
+                card.innerHTML = `
+                    <div class="flavor-header">
+                        <div class="flavor-title">${flavor.name}</div>
+                        <div class="flavor-icon"><i class="fas ${flavor.icon}"></i></div>
+                    </div>
+                    <div class="flavor-meta">
+                        ${versionBadge}
+                        ${statusBadge}
+                    </div>
+                    <div class="flavor-desc">${flavor.description}</div>
+                    ${versionInfo}
+                `;
+                
+                grid.appendChild(card);
+            }
+        }
+        
+        function launchFlavor(flavor, config) {
+            // Get default version
+            const defaultVersion = flavor.versions.find(v => v.isDefault) || flavor.versions[0];
+            
+            if (!defaultVersion) {
+                alert(`${flavor.name} has no available versions yet.`);
+                return;
+            }
+            
+            // Save selection
+            localStorage.setItem('trailblazerFeature', flavor.key);
+            localStorage.setItem('trailblazerVersion', defaultVersion.version);
+            
+            // Navigate to the default version path
+            const deployPath = defaultVersion.deployPath;
+            window.location.href = './' + deployPath + '/';
+        }
+        
+        // Initialize
+        init();
+    </script>
+</body>
+</html>

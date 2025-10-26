@@ -1,0 +1,120 @@
+{
+  "version": "1.0",
+  "lastUpdated": "2025-10-26",
+  "defaultFeature": "feature-a",
+  "defaultVersion": "0.2.0",
+  "project": {
+    "name": "ROLF Trailblazer",
+    "description": "Exploration with safety and privacy in mind",
+    "repository": "https://github.com/rolfusa-org/trailblazer"
+  },
+  "flavors": [
+    {
+      "key": "feature-a",
+      "name": "Feature A",
+      "shortName": "Feature A",
+      "icon": "fa-rocket",
+      "description": "Baseline implementation for exploration features.",
+      "branch": "feature-a",
+      "status": "active",
+      "visible": true,
+      "versions": [
+        {
+          "version": "0.2.0",
+          "tag": "feature-a-v0.2.0",
+          "label": "Latest",
+          "isDefault": true,
+          "deployPath": "feature-a/v0.2.0",
+          "releaseDate": "2025-10-23"
+        },
+        {
+          "version": "0.1.0",
+          "tag": "v0.1.0",
+          "label": "Stable",
+          "isDefault": false,
+          "deployPath": "feature-a/v0.1.0",
+          "releaseDate": "2025-10-23"
+        }
+      ]
+    },
+    {
+      "key": "feature-b",
+      "name": "Feature B",
+      "shortName": "Feature B",
+      "icon": "fa-compass",
+      "description": "Alternative implementation approach for testing.",
+      "branch": "feature-b",
+      "status": "beta",
+      "visible": true,
+      "versions": [
+        {
+          "version": "0.2.0",
+          "tag": "feature-b-v0.2.0",
+          "label": "Latest",
+          "isDefault": true,
+          "deployPath": "feature-b/v0.2.0",
+          "releaseDate": "2025-10-23"
+        },
+        {
+          "version": "0.1.0",
+          "tag": "v0.1.0",
+          "label": "Stable",
+          "isDefault": false,
+          "deployPath": "feature-b/v0.1.0",
+          "releaseDate": "2025-10-23"
+        }
+      ]
+    },
+    {
+      "key": "feature-c",
+      "name": "Feature C",
+      "shortName": "Feature C",
+      "icon": "fa-map-marked-alt",
+      "description": "Experimental features and innovations.",
+      "branch": "feature-c",
+      "status": "development",
+      "visible": true,
+      "versions": [
+        {
+          "version": "0.2.0",
+          "tag": "feature-c-v0.2.0",
+          "label": "Latest",
+          "isDefault": true,
+          "deployPath": "feature-c/v0.2.0",
+          "releaseDate": "2025-10-23"
+        },
+        {
+          "version": "0.1.0",
+          "tag": "v0.1.0",
+          "label": "Stable",
+          "isDefault": false,
+          "deployPath": "feature-c/v0.1.0",
+          "releaseDate": "2025-10-23"
+        }
+      ]
+    }
+  ],
+  "statusTypes": {
+    "active": {
+      "label": "Live",
+      "color": "#48bb78",
+      "clickable": true
+    },
+    "beta": {
+      "label": "Beta",
+      "color": "#ed8936",
+      "clickable": true
+    },
+    "development": {
+      "label": "In Development",
+      "color": "#cbd5e0",
+      "clickable": true
+    },
+    "coming-soon": {
+      "label": "Coming Soon",
+      "color": "#cbd5e0",
+      "clickable": false
+    }
+  }
+}
+
