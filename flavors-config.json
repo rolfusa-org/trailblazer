@@ -1,6 +1,8 @@
 {
   "version": "1.0",
-  "lastUpdated": "2025-10-23",
+  "lastUpdated": "2025-10-26",
+  "defaultFeature": "feature-a",
+  "defaultVersion": "0.2.0",
   "project": {
     "name": "ROLF Trailblazer",
     "description": "Exploration with safety and privacy in mind",

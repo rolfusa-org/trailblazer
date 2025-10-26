@@ -9,10 +9,11 @@
     
     // ===== PATH DETECTION =====
     // Parse URL to detect current flavor and version
-    // Examples: /html/v1.0.0/ → {flavor: 'html', version: 'v1.0.0', basePath: '/html/v1.0.0'}
+    // Examples: /feature-a/v0.2.0/ → {flavor: 'feature-a', version: 'v0.2.0', basePath: '/feature-a/v0.2.0'}
     function detectCurrentPath() {
         const path = window.location.pathname;
-        const match = path.match(/\/(html|pwa|nextjs)\/(v[\d.]+)\//);
+        // Match: /feature-a/v0.2.0/ or /feature-b/v0.1.0/ or /feature-c/v0.2.0/
+        const match = path.match(/\/(feature-[abc])\/(v[\d.]+)\//);
         
         if (match) {
             return {
@@ -25,7 +26,7 @@
         
         // Fallback for non-nested paths (local development)
         return {
-            flavor: 'html',
+            flavor: 'feature-a',
             version: 'unknown',
             basePath: '',
             isNested: false
@@ -42,7 +43,7 @@
             background: rgba(0, 0, 0, 0.8); z-index: 10000; padding: 20px; overflow-y: auto;">
             <div style="max-width: 800px; margin: 0 auto; background: white; border-radius: 12px; 
                 box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); position: relative; animation: slideIn 0.3s ease;">
-                <div style="position: sticky; top: 0; background: linear-gradient(135deg, #54B9BE 0%, #4a9fa3 100%); 
+                <div style="position: sticky; top: 0; background: linear-gradient(135deg, #10b981 0%, #059669 100%); 
                     color: white; padding: 20px; border-radius: 12px 12px 0 0; display: flex; 
                     justify-content: space-between; align-items: center; z-index: 1;">
                     <h2 style="margin: 0; font-size: 24px; display: flex; align-items: center; gap: 10px;">
@@ -75,11 +76,11 @@
             background: rgba(0, 0, 0, 0.8); z-index: 10001; padding: 20px; overflow-y: auto;">
             <div style="max-width: 600px; margin: 0 auto; background: white; border-radius: 12px; 
                 box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); position: relative; animation: slideIn 0.3s ease;">
-                <div style="position: sticky; top: 0; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+                <div style="position: sticky; top: 0; background: linear-gradient(135deg, #10b981 0%, #059669 100%); 
                     color: white; padding: 20px; border-radius: 12px 12px 0 0; display: flex; 
                     justify-content: space-between; align-items: center; z-index: 1;">
                     <h2 style="margin: 0; font-size: 24px; display: flex; align-items: center; gap: 10px;">
-                        <i class="fas fa-flask"></i> Switch Flavor & Version
+                        <i class="fas fa-th"></i> Switch Feature & Version
                     </h2>
                     <button id="closeSwitcherBtn" style="background: rgba(255, 255, 255, 0.2); 
                         border: none; color: white; width: 40px; height: 40px; border-radius: 50%; 
@@ -100,6 +101,36 @@
         </div>
     `;
     document.body.insertAdjacentHTML('beforeend', switcherModalHTML);
+    
+    // ===== FLOATING SELECTOR BUTTON =====
+    const floatingBtnHTML = `
+        <button id="floatingSelector" 
+            style="position: fixed; bottom: 20px; right: 20px; 
+                   width: 56px; height: 56px; border-radius: 50%;
+                   background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+                   border: none; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+                   cursor: pointer; z-index: 9999; display: flex; align-items: center;
+                   justify-content: center; color: white; font-size: 24px;
+                   transition: all 0.3s ease;"
+            title="Switch Feature & Version">
+            <i class="fas fa-th"></i>
+        </button>
+    `;
+    document.body.insertAdjacentHTML('beforeend', floatingBtnHTML);
+    
+    // Add event listener for floating button
+    const floatingBtn = document.getElementById('floatingSelector');
+    if (floatingBtn) {
+        floatingBtn.addEventListener('click', showSwitcher);
+        floatingBtn.addEventListener('mouseover', function() {
+            this.style.transform = 'scale(1.1)';
+            this.style.boxShadow = '0 6px 20px rgba(16, 185, 129, 0.6)';
+        });
+        floatingBtn.addEventListener('mouseout', function() {
+            this.style.transform = 'scale(1)';
+            this.style.boxShadow = '0 4px 12px rgba(16, 185, 129, 0.4)';
+        });
+    }
     
     // ===== NAVIGATION BUTTONS =====
     const navActions = document.querySelector('.nav-actions');
@@ -265,7 +296,7 @@
             const statusBadge = `<span style="font-size: 11px; padding: 2px 8px; border-radius: 12px; background: ${statusInfo.color}; color: white;">${statusInfo.label || flavor.status}</span>`;
             
             header.innerHTML = `
-                <i class="fas ${flavor.icon}" style="font-size: 18px; color: #667eea;"></i>
+                <i class="fas ${flavor.icon}" style="font-size: 18px; color: #10b981;"></i>
                 <strong style="font-size: 16px;">${flavor.name}</strong>
                 ${statusBadge}
             `;
@@ -281,8 +312,8 @@
                         padding: 12px 16px;
                         margin: 8px 0;
                         border-radius: 8px;
-                        border: 2px solid ${isCurrent ? '#667eea' : '#e2e8f0'};
-                        background: ${isCurrent ? '#f7fafc' : 'white'};
+                        border: 2px solid ${isCurrent ? '#10b981' : '#e2e8f0'};
+                        background: ${isCurrent ? '#f0fdf4' : 'white'};
                         cursor: ${isCurrent ? 'default' : 'pointer'};
                         transition: all 0.2s;
                         display: flex;
@@ -291,13 +322,13 @@
                     `;
                     
                     if (!isCurrent) {
-                        versionCard.onmouseover = () => versionCard.style.borderColor = '#667eea';
+                        versionCard.onmouseover = () => versionCard.style.borderColor = '#10b981';
                         versionCard.onmouseout = () => versionCard.style.borderColor = '#e2e8f0';
                         versionCard.onclick = () => switchTo(version.deployPath);
                     }
                     
                     const versionLabel = version.label ? ` <span style="color: #999; font-size: 12px;">(${version.label})</span>` : '';
-                    const currentBadge = isCurrent ? '<span style="font-size: 11px; padding: 2px 8px; border-radius: 12px; background: #667eea; color: white;">Current</span>' : '';
+                    const currentBadge = isCurrent ? '<span style="font-size: 11px; padding: 2px 8px; border-radius: 12px; background: #10b981; color: white;">Current</span>' : '';
                     
                     versionCard.innerHTML = `
                         <div>
@@ -316,6 +347,18 @@
     }
     
     function switchTo(deployPath) {
+        // Parse feature and version from deployPath (e.g., "feature-a/v0.2.0")
+        const parts = deployPath.split('/');
+        if (parts.length >= 2) {
+            const feature = parts[0];
+            const version = parts[1].replace('v', '');
+            
+            // Save selection to localStorage
+            localStorage.setItem('trailblazerFeature', feature);
+            localStorage.setItem('trailblazerVersion', version);
+            console.log('Saved selection:', feature, version);
+        }
+        
         const basePath = window.location.origin + window.location.pathname.split('/').slice(0, -3).join('/');
         const newURL = `${basePath}/${deployPath}/`;
         console.log('Switching to:', newURL);
